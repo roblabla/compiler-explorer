@@ -710,6 +710,8 @@ Compiler.prototype.onToolOpened = function (compilerId, toolSettings) {
             this.llvmmcaToolButton.prop('disabled', true);
         } else if (toolId === "pahole") {
             this.paholeToolButton.prop('disabled', true);
+        } else if (toolId === "ghidra") {
+            this.ghidraToolButton.prop('disabled', true);
         }
 
         this.compile(false, toolSettings);
@@ -725,6 +727,8 @@ Compiler.prototype.onToolClosed = function (compilerId, toolSettings) {
             this.llvmmcaToolButton.prop('disabled', !this.supportsTool(toolId));
         } else if (toolId === "pahole") {
             this.paholeToolButton.prop('disabled', !this.supportsTool(toolId));
+        } else if (toolId === "ghidra") {
+            this.ghidraToolButton.prop('disabled', !this.supportsTool(toolId));
         }
     }
 };
@@ -961,10 +965,12 @@ Compiler.prototype.initToolButtons = function (togglePannerAdder) {
     this.clangtidyToolButton = this.domRoot.find('.view-clangtidytool');
     this.llvmmcaToolButton = this.domRoot.find('.view-llvmmcatool');
     this.paholeToolButton = this.domRoot.find('.view-pahole');
+    this.ghidraToolButton = this.domRoot.find('.view-ghidra');
 
     this.initToolButton(togglePannerAdder, this.clangtidyToolButton, "clangtidytrunk");
     this.initToolButton(togglePannerAdder, this.llvmmcaToolButton, "llvm-mcatrunk");
     this.initToolButton(togglePannerAdder, this.paholeToolButton, "pahole");
+    this.initToolButton(togglePannerAdder, this.ghidraToolButton, "ghidra");
 };
 
 Compiler.prototype.updateButtons = function () {
@@ -1015,6 +1021,8 @@ Compiler.prototype.updateButtons = function () {
         !(this.supportsTool("llvm-mcatrunk") && !this.isToolActive(activeTools, "llvm-mcatrunk")));
     this.paholeToolButton.prop('disabled',
         !(this.supportsTool("pahole") && !this.isToolActive(activeTools, "pahole")));
+    this.ghidraToolButton.prop('disabled',
+        !(this.supportsTool("ghidra") && !this.isToolActive(activeTools, "ghidra")));
 };
 
 Compiler.prototype.handlePopularArgumentsResult = function (result) {
